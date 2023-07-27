@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import {db} from '../database';
 
 interface CustomerAttributes {
+  numero_customer: number;
   mesReferencia: string;
   dataVencimento: Date;
   energiaEletrica_kWh: number;
@@ -18,6 +19,7 @@ interface CustomerAttributes {
 }
 
 class Customer extends Model<CustomerAttributes> implements CustomerAttributes {
+  public numero_customer!: number;
   public mesReferencia!: string;
   public dataVencimento!: Date;
   public energiaEletrica_kWh!: number;
@@ -35,6 +37,10 @@ class Customer extends Model<CustomerAttributes> implements CustomerAttributes {
 
 Customer.init(
   {
+    numero_customer: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
     mesReferencia: {
       type: DataTypes.STRING,
       allowNull: false

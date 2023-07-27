@@ -7,6 +7,10 @@ class Customer extends sequelize_1.Model {
 }
 exports.Customer = Customer;
 Customer.init({
+    numero_customer: {
+        type: sequelize_1.DataTypes.BIGINT,
+        allowNull: false
+    },
     mesReferencia: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
