@@ -8,26 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const database_1 = require("./database");
-const app = (0, express_1.default)();
-const PORT = 3000;
-function startServer() {
+exports.syncDatabase = exports.db = void 0;
+const sequelize_1 = require("sequelize");
+const db = new sequelize_1.Sequelize('lumi', 'admin', 'admin', {
+    host: 'localhost',
+    dialect: 'postgres',
+    logging: false,
+    define: {
+        timestamps: false
+    }
+});
+exports.db = db;
+function syncDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, database_1.syncDatabase)();
-            app.use(express_1.default.json());
-            app.listen(PORT, () => {
-                console.log(`Server is running at http://localhost:${PORT}`);
-            });
+            yield db.sync({ alter: true });
+            console.log('Modelo sincronizado com o banco de dados.');
         }
         catch (err) {
-            console.error('Erro ao iniciar o servidor:', err);
+            console.error('Erro ao sincronizar o modelo:', err);
         }
     });
 }
-startServer();
+exports.syncDatabase = syncDatabase;

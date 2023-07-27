@@ -10,11 +10,13 @@ services:
       - postgres
   postgres:
     image: postgres:12.4
+    volumes:
+      - ./lumi.bkp:/docker-entrypoint-initdb.d/lumi.sql
     container_name: postgres_db
     environment:
-      POSTGRES_USER: seqwdhpiixscbv
-      POSTGRES_PASSWORD: Postgres@Bolsa
-      POSTGRES_DB: bolsa
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: lumi
     ports:
       - "5432:5432"
 
