@@ -95,4 +95,4 @@ Customer.init(
   }
 );
 
-export default Customer;
+export { Customer, CustomerAttributes };

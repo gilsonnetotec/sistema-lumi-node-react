@@ -14,13 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = require("./database");
+const router_1 = __importDefault(require("./routes/router"));
 const app = (0, express_1.default)();
 const PORT = 3000;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield (0, database_1.syncDatabase)();
+            app.use("/api", router_1.default);
             app.use(express_1.default.json());
+            app.use((req, res) => {
+                res.status(404).json({ error: "Rota não encontrada." });
+            });
             app.listen(PORT, () => {
                 console.log(`Server is running at http://localhost:${PORT}`);
             });
