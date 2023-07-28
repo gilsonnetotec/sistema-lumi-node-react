@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { db, syncDatabase } from './database';
 import router from "./routes/router";
 
@@ -9,6 +10,7 @@ async function startServer() {
   try {
     await syncDatabase();
 
+    app.use(cors());
     app.use("/api", router)
 
     app.use(express.json());
@@ -18,7 +20,7 @@ async function startServer() {
     });
 
     app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`);
+      console.log(`Servidor backend iniciado na porta ${PORT}`);
     });
   } catch (err) {
     console.error('Erro ao iniciar o servidor:', err);
