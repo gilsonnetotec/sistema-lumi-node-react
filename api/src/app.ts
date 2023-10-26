@@ -11,9 +11,9 @@ async function startServer() {
     await syncDatabase();
 
     app.use(cors());
-    app.use("/api", router)
-
     app.use(express.json());
+
+    app.use("/api", router)
 
     app.use((req, res) => {
       res.status(404).json({ error: "Rota não encontrada." });
